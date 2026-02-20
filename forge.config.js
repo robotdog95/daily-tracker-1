@@ -4,7 +4,7 @@ const { FuseV1Options, FuseVersion } = require('@electron/fuses');
 module.exports = {
   packagerConfig: {
     asar: true,
-    icon: "G:/WORKSPACE/Product design/tracker electron devpc1/tracker/src/assets/icons/calendarpng.ico"
+    icon: "./src/assets/icons/calendarpng.ico"
   },
   rebuildConfig: {},
   makers: [

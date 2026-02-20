@@ -3,18 +3,7 @@ const { app, BrowserWindow } = require('electron');
 const { ipcMain } = require("electron");
 const path = require('node:path');
 const { electron } = require('node:process');
-//const PouchDB = require('pouchdb');
-//PouchDB.plugin(require('pouchdb-adapter-memory'));
-//const db = new PouchDB('database');
-/*
-function destroyDatabase(){
-  db.destroy().then(function (response) {
-  // success
-}).catch(function (err) {
-  console.log(err);
-});
-}
-*/
+
 if (require('electron-squirrel-startup')) {
   app.quit();
 }

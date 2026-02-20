@@ -1,0 +1,18 @@
+.planner-main {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.152);
+}
+
+h1 {
+    height: 50px;
+}
+
+.pla-task-pool {
+    margin: 5px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.152);
+}
