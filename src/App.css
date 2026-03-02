@@ -1,4 +1,5 @@
 :root {
+
   --color-placeholder: #2f85db;
 
   --font-main: "Roboto", sans-serif;
@@ -119,6 +120,21 @@ body {
 
 .button-positive {
   --button-color: var(--color-positive);
+}
+
+.flex-row-wrapper{
+  display: flex;
+  flex-flow: row nowrap;
+  gap:5px;
+}
+.font-test{
+  display: flex;
+  flex-flow: column nowrap;
+ 
+  border: var(--border);
+  border-radius: 10px;
+  padding: 15px;
+
 }
 
 .test-ui-color {
