@@ -1,7 +1,17 @@
-<link defer rel="stylesheet" href="./views/styles/plannerStyle.css" />
+<link defer rel="stylesheet" href="./views/styles/menusStyle.css" />
 <div class="planner-main">
-  <div class="gridcont">
-    <ac-draggable></ac-draggable>
-  </div>
-  <div class="pla-task-pool"></div>
+  <time-line data-drag>
+    <ac-drag-card></ac-drag-card>
+    <ac-drag-card></ac-drag-card>
+    <ac-drag-card></ac-drag-card>
+    <ac-drag-card></ac-drag-card>
+    <ac-drag-card></ac-drag-card>
+    <ac-drag-card class="anchor"></ac-drag-card>
+    <ac-drag-card></ac-drag-card>
+    <menu-sliding-anchored>
+      <div class="content">test test testing test</div>
+    </menu-sliding-anchored>
+  </time-line>
+  <button type="button" onclick="document.querySelector('menu-sliding-anchored').classList.toggle('sliding')">just a button</button>
+
 </div>

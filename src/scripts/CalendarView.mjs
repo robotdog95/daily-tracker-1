@@ -1,4 +1,4 @@
-import { AppComponent, loadHTML } from "./AppComp.mjs";
+import { AppComponent, loadHTML } from "./AppComponent.mjs";
 
 
 export class CalendarView extends AppComponent {

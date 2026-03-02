@@ -1,4 +1,4 @@
-import { AppComponent, loadHTML } from "./AppComp.mjs";
+import { AppComponent, loadHTML } from "./AppComponent.mjs";
 
 export class PlannerView extends AppComponent {
   constructor() {
@@ -18,8 +18,6 @@ export class PlannerView extends AppComponent {
   }
   async getHTML() {
     this.innerHTML = await loadHTML(PlannerView.htmlpath);
-    console.warn(this.innerHTML);
-
     return this.innerHTML;
   }
 

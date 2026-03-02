@@ -13,16 +13,13 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    frame: false,
     titleBarStyle: "hidden",
-    titleBarOverlay: {
-      color: "#00000000",
-      symbolColor: "#74b1be",
-      height: 30,
-    },
+    titleBarOverlay: false,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
-    minHeight: 700,
+    minHeight: 500,
     minWidth: 400,
     icon: path.join(__dirname, "/assets/icons/calendarpng.ico"),
   });

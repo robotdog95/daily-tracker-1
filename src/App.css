@@ -1,0 +1,594 @@
+:root {
+  --color-placeholder: #2f85db;
+
+  --font-main: "Roboto", sans-serif;
+  --font-second: "Solway", serif;
+  --font-hand-small: "Solway", sans-serif;
+  --font-hand-big: "Jua", sans-serif;
+
+  --font-small: 12pt;
+  --font-big: 18pt;
+  --font-huge: 23pt;
+
+  --color-shade-0: color-mix(in hsl, black 70%, var(--color-contrast) 100%);
+  --color-shade-1: color-mix(in hsl, black 30%, var(--color-contrast) 100%);
+  --color-shade-2: color-mix(in hsl, black 10%, var(--color-contrast) 100%);
+
+  --color-shade-3: color-mix(in hsl, white 10%, var(--color-contrast) 100%);
+  --color-shade-4: color-mix(in hsl, white 30%, var(--color-contrast) 100%);
+  --color-shade-5: color-mix(in hsl, white 50%, var(--color-contrast) 100%);
+}
+
+.dark-theme {
+  --color-black: hsl(0, 0%, 4%);
+  --color-text: hsl(0, 0%, 23%);
+  --color-accent-hc: hsl(0, 0%, 17%);
+  --color-accent-lc: hsl(0, 0%, 50%);
+  --color-background: rgb(68, 68, 68);
+  --color-contrast: hsl(217, 45%, 53%);
+  --border: 3px solid var(--color-black);
+}
+
+.light-theme {
+  --color-black: hsl(0, 0%, 4%);
+  --color-text: hsl(0, 0%, 13%);
+  --color-accent-lc: hsl(0, 0%, 80%);
+  --color-accent-hc: hsl(0, 0%, 41%);
+  --color-background: hsl(0, 0%, 92%);
+  --color-contrast: hsl(87, 21%, 60%);
+  --border: 3px solid var(--color-black);
+}
+
+
+
+.custom-palette::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-color: var(--user-color-4);
+  mask-image: linear-gradient(black 2%, rgba(0, 0, 0, 0.431), transparent);
+  backdrop-filter: brightness(70%) contrast(110%) saturate(110%) hue-rotate(300deg);
+  opacity: 90%;
+}
+
+.custom-palette {
+  margin: 10px;
+  border: var(--border);
+  border-radius: 30px;
+  width: 50%;
+  height: 150px;
+  background: linear-gradient(to right,
+      var(--user-color-1),
+      var(--user-color-2),
+      var(--user-color-3));
+  overflow: clip;
+  position: relative;
+  text-align: center;
+  align-content: center;
+
+  h3 {
+    font-size: medium;
+  }
+}
+
+/*-----------------------------------------------------------------*/
+
+body {
+  display: flex;
+  flex-direction: column;
+
+  font-family: var(--font-main);
+  color: var(--color-text);
+
+  margin: 0px;
+  padding: 0px;
+  height: 100vh;
+
+  background-color: var(--current-bg-color);
+  --current-bg-color: var(--color-background);
+
+  --color-shade-0: color-mix(in hsl, black 70%, var(--color-contrast) 100%);
+  --color-shade-1: color-mix(in hsl, black 30%, var(--color-contrast) 100%);
+  --color-shade-2: color-mix(in hsl, black 10%, var(--color-contrast) 100%);
+
+  --color-shade-3: color-mix(in hsl, white 10%, var(--color-contrast) 100%);
+  --color-shade-4: color-mix(in hsl, white 30%, var(--color-contrast) 100%);
+  --color-shade-5: color-mix(in hsl, white 50%, var(--color-contrast) 100%);
+
+  --color-urgent: #f6788d;
+  --color-medium: #f2a11c;
+  --color-neutral: #949de0;
+  --color-positive: #d0bf6c;
+  --color-negative: rgb(202, 127, 129);
+
+
+  overflow: clip;
+}
+
+.button-negative {
+  --button-color: var(--color-negative);
+}
+
+.button-neutral {
+  --button-color: var(--color-neutral);
+}
+
+.button-positive {
+  --button-color: var(--color-positive);
+}
+
+.test-ui-color {
+  margin: 1rem;
+  max-width: 60%;
+  border-radius: 30px;
+  overflow: hidden;
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 0px;
+  margin: 0px;
+  background-color: black;
+}
+
+.test-row {
+  flex-grow: 1;
+  min-width: 30%;
+  display: flex;
+  flex-flow: column nowrap;
+
+  div {
+    min-height: 60px;
+    text-align: center;
+    align-content: center;
+  }
+}
+
+.palette-1 {
+  --user-color-1: #ef9595;
+  --user-color-2: #efb495;
+  --user-color-3: #ebef95;
+  --user-color-4: hsla(323, 100%, 14%, 0.7);
+
+
+}
+
+.palette-2 {
+  --user-color-1: hsl(358, 89%, 72%);
+  --user-color-2: hsl(42, 94%, 75%);
+  --user-color-3: hsl(144, 100%, 89%);
+  --user-color-4: hsla(235, 100%, 35%, 0.352);
+}
+
+.palette-3 {
+  --user-color-1: #3a4d39;
+  --user-color-2: #739072;
+  --user-color-3: #ece3ce;
+  --user-color-4: #482a0e38;
+}
+
+.App {
+  display: flex;
+  flex-direction: row;
+
+  height: 100%;
+  overflow: hidden;
+}
+
+.App-content {
+
+  background-color: var(--current-bg-color);
+  --current-bg-color: var(--color-background);
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+#App-top-bar {
+  background-color: var(--color-accent-lc);
+  border-bottom: 2px solid var(--color-accent-hc);
+  box-shadow: 0 5px 5px 5px black;
+
+  h1 {
+    font-size: large;
+  }
+}
+
+/*----------------BUTTONS*/
+
+ul {
+  all: unset;
+  list-style-type: none;
+}
+
+.button-group {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: fit-content;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: baseline;
+  justify-content: space-evenly;
+  row-gap: 5px;
+  column-gap: 10px;
+}
+
+button {
+  font-family: var(--font-hand-small);
+
+  padding: 10px 0px 10px 0px;
+
+  border: 2px solid black;
+  border-radius: 7px;
+  min-width: max-content;
+  max-width: 100%;
+  max-height: min-content;
+  margin-bottom: 8px;
+  margin-top: 8px;
+  --button-color: var(--color-shade-4);
+  background-color: var(--button-color);
+
+  box-shadow: -2px 3px var(--color-black);
+  letter-spacing: 3px;
+  font-size: medium;
+  font-weight: 450;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+
+  transition: background-color 0.1s;
+  text-align: center;
+  align-items: center;
+  color: var(--color-black);
+
+  i {
+    order: 0;
+    font-size: x-large;
+    padding-right: 10px;
+  }
+
+  padding-left: 10px;
+  padding-right: 10px;
+
+  &:hover {
+    background-color: color-mix(in hsl,
+        var(--button-color) 90%,
+        var(--color-background) 10%);
+  }
+
+  &:active {
+
+    box-shadow: none;
+
+    transform: translate(-1px, 1px);
+    background-color: color-mix(in hsl,
+        var(--button-color) 90%,
+        var(--color-text) 10%);
+  }
+
+  &.round {
+    max-height: 100px;
+    text-size-adjust: 50%;
+    justify-content: center;
+    aspect-ratio: 1;
+    border-radius: 100vw;
+  }
+}
+
+/*----------------TEXT*/
+p {
+  font-family: var(--font-main);
+  font-size: small;
+  font-weight: 300;
+  color: var(--color-text);
+  margin: auto;
+}
+
+h1 {
+  font-family: var(--font-second);
+  font-size: xx-large;
+  font-weight: 400;
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  font-family: var(--font-hand-big);
+  font-size: x-large;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 500;
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
+}
+
+h3 {
+  font-family: var(--font-second);
+  font-size: large;
+  text-transform: lowercase;
+  font-weight: 400;
+  letter-spacing: 4px;
+  margin: 0;
+  padding: 0;
+  filter: invert(1);
+  mix-blend-mode: difference;
+}
+
+/*----------------INPUTS*/
+form {}
+
+label {
+  color: var(--color-text);
+}
+
+input {
+  all: unset;
+  padding: 10px;
+  margin: auto;
+  border-style: solid;
+  border-radius: 10px;
+  border-width: 2px;
+  background-color: rgba(255, 255, 255, 0.728);
+  border-color: var(--color-accent-hc);
+}
+
+.input-hidden {
+  display: none;
+}
+
+.radio {}
+
+.gridselector {}
+
+/* like the iconselector, may be useful for stickers, custom tags etc */
+
+/*---------------TINY COMPONENTS*/
+.colordot {
+  /* div, for palettes and maybe other stuff */
+  aspect-ratio: 1/1;
+  border-radius: 100vw;
+}
+
+i {
+  /*icon*/
+  font-size: 40px;
+  font-weight: 500;
+}
+
+dialog::backdrop {
+  opacity: 0.2;
+  background-color: rgba(0, 0, 0, 0.53);
+  background-image: url("data:image/svg+xml,<svg id='patternId' width='300%' height='300%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='20' height='20' patternTransform='scale(1) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='%2300000000'/><path d='M11 6a5 5 0 01-5 5 5 5 0 01-5-5 5 5 0 015-5 5 5 0 015 5'  stroke-width='1' stroke='none' fill='%23000000ff'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
+}
+
+dialog {
+  display: none;
+}
+
+dialog:open {
+  padding: unset;
+
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-background);
+  border: var(--border);
+  border-radius: 15px 15px 5px 5px;
+  max-width: 70%;
+  overflow: hidden;
+  box-shadow: -7px 12px 0px 1px color-mix(in hsl, var(--color-black) 20%, hsla(0, 0%, 0%, 0) 20%);
+}
+
+.dialog-body {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+/*----------------MENUS*/
+.menu-sidebar {
+  z-index: 1;
+}
+
+.menu-burger {
+  z-index: 1;
+}
+
+.side-menu {
+  z-index: 1;
+  --current-bg-color: var(--color-accent-lc);
+  background-color: var(--current-bg-color);
+  border-right: 2px solid var(--color-text);
+  width: 30%;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: flex-start;
+  padding: 8px;
+
+  button {
+    width: 100%;
+    height: 3.5rem;
+    margin-bottom: 5px;
+    color: var(--color-text);
+
+    --button-color: var(--color-background);
+
+    /* proper way to change color of button. Changing it will also work on :hover and :active*/
+  }
+
+  button:hover {
+    background-color: var(--color-shade-4);
+  }
+
+  button:active {
+    background-color: var(--color-shade-2);
+  }
+
+
+}
+
+ul.menu {
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+
+  li {
+    list-style: none;
+  }
+}
+
+.menu-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+/*----------------INTERFACE ELEMENTS*/
+.top-bar {
+  --top-bar-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding-left: 15px;
+  padding-right: 5px;
+  margin: 0px;
+  height: var(--top-bar-height);
+
+  background-color: var(--color-accent-lc);
+  border-radius: 10px 10px 0 0;
+  border-bottom: var(--border);
+
+  div {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+
+  button {
+    all: unset;
+
+    display: flex;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50%;
+    margin-bottom: 50%;
+    align-self: flex-end;
+    height: 25px;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 2px;
+    border-color: var(--color-black);
+    aspect-ratio: 1/1;
+    margin-left: 3px;
+
+    i {
+      all: unset;
+      font-size: 20px;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    background-color: color-mix(in hsl,
+      var(--color-accent-lc) 50%,
+      var(--color-background) 50%);
+    color: var(--color-black);
+
+    &:hover {
+      background-color: color-mix(in hsl,
+          var(--color-accent-lc) 20%,
+          var(--color-background) 80%);
+    }
+
+    &:active {
+      background-color: color-mix(in hsl,
+          var(--color-accent-lc) 90%,
+          var(--color-background) 10%);
+    }
+  }
+}
+
+.expander {
+  display: none;
+}
+
+.slidingtab {}
+
+.tracker-card {
+  display: none;
+}
+
+
+
+.tracker-card:open {
+
+  color: var(--color-black);
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  padding: 0;
+  background-color: var(--user-color-1);
+  min-width: 30%;
+
+
+
+}
+
+.tracker-card-header {
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 10px 10px 10px 10px;
+  margin: auto;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 3px solid black;
+  width: 100%;
+  background-color: var(--color-background);
+
+  h1 {
+    font-size: x-large;
+    letter-spacing: 5px;
+    width: 100%;
+    text-align: center;
+  }
+
+  i {
+    font-size: 40px;
+  }
+
+  /*i {
+    
+    vertical-align: middle;
+    text-align: center;
+    align-content: center;
+    max-width: min-content;
+    font-size: xx-large;
+    color: var(--color-text);
+    border: 4px solid black;
+    aspect-ratio: 1/1;
+    border-radius:50%;
+    padding: 10px;
+    background-color: var(--color-background);
+
+  }*/
+}
+
+
+.tracker-card-buttons {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+
+  button {
+    margin: 5px;
+  }
+}

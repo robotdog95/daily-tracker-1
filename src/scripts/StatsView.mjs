@@ -1,4 +1,4 @@
-import { AppComponent, loadHTML } from "./AppComp.mjs";
+import { AppComponent, loadHTML } from "./AppComponent.mjs";
 
 export class StatsView extends AppComponent {
   constructor() {

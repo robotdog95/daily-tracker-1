@@ -1,0 +1,19 @@
+menu-sliding-anchored{
+    --height: 50px;
+    background-color: #fff;
+    color: black;
+    height: var(--height);
+    position: absolute;
+    position-anchor: --my-anchor;
+    position-area: bottom;
+    transition: all 0.5s cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
+.sliding{
+    margin-top: calc(var(--height) * -1) ;
+}
+
+.anchor {
+  anchor-name: --my-anchor;
+  z-index: 4000;
+}

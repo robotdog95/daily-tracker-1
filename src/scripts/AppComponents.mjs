@@ -5,7 +5,7 @@ import { FilterView } from "./FilterView.mjs";
 import { EditView } from "./EditView.mjs";
 import { ConfigView } from "./ConfigView.mjs";
 import { PlannerView } from "./PlannerView.mjs";
-import { Draggable } from "./draggableCard.js";
+import { Draggable, DragContainer} from "./draggableCard.mjs";
 
 export const AppComponents = {
   calendar: CalendarView,
