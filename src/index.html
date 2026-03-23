@@ -2,6 +2,7 @@
 <html lang="en">
 <link rel="stylesheet" href="App.css" />
 
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
@@ -12,6 +13,8 @@
   href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
 <link rel="stylesheet" type="text/css"
   href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css" />
+<link rel="stylesheet" type="text/css"
+  href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/fill/style.css" />
 <link rel="stylesheet" type="text/css"
   href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/fill/style.css" />
 
@@ -39,6 +42,11 @@
           <li>
             <button type="button" value="calendar" class="nav-btn">
               <i class="ph ph-calendar-dots"></i> Calendar
+            </button>
+          </li>
+          <li>
+            <button type="button" value="createtracker" class="nav-btn">
+              <i class="ph ph-calendar-dots"></i> Create a Tracker
             </button>
           </li>
           <li>
@@ -71,17 +79,14 @@
       <div class="menu-footer"></div>
     </div>
 
-    <div class="App-content">
-      <h1>Hello, it's H1</h1>
 
-      <p>
-        Some paragraph. Earum qui sed id. Repellendus esse est facere sed
-        dolorem. Velit et incidunt veritatis minus esse illum. Placeat sunt
-        provident sint hic temporibus. Quasi voluptatum distinctio ratione.
-        Qui officiis voluptates dolor deserunt qui. Placeat odit autem
-        repudiandae qui qui explicabo. Ex modi rerum labore nulla aut
-        voluptates. Doloribus id sint culpa qui doloremque. faire caca.
-      </p>
+
+
+
+    <div class="App-content" id="mainwrapper">
+
+
+
       <span class="button-group">
         <button commandfor="test-dialog" command="show-modal" class="round">
           OPEN DIALOG
@@ -89,98 +94,15 @@
         <button commandfor="tracker-poop" command="show-modal">
           Show Poop
         </button>
-        <button commandfor="custom-palettes" command="show-modal">
-          Custom Palettes
+        <button commandfor="create-tracker" command="show-modal">
+          Create a Tracker
         </button>
         <button commandfor="current-palette" command="show-modal">
           Current Palette
         </button>
       </span>
 
-<div class="flex-row-wrapper">
 
-  <div class="font-test" id="font-test-1">
-    <h1>A BigTitle</h1>
-
-
-    <h3>Small ass title</h3>
-    <p>Some words and stuff. Earum qui sed id. Repellendus esse est facere sed
-      dolorem. Velit et incidunt veritatis minus esse illum. Placeat sunt
-      provident sint hic temporibus. Quasi voluptatum distinctio ratione.</p>
-      <div></div>
-      <i class="ph-bold ph-clock"></i>
-      <h2>some tracker</h2>
-<span>Qui officiis voluptates dolor deserunt qui. Placeat odit autem
-repudiandae qui qui explicabo. Ex modi rerum labore nulla aut
-voluptates. Doloribus id sint culpa qui doloremque. faire caca.</span>
-
-    <button>click here</button><button>or here</button>
-  </div>
-
-  <div class="font-test" id="font-test-2">
-    <h1>A BigTitle</h1>
-    <i class="ph-bold ph-clock"></i>
-  
-    <h3>Small ass title</h3>
-    <p>Some words and stuff. Earum qui sed id. Repellendus esse est facere sed
-      dolorem. Velit et incidunt veritatis minus esse illum. Placeat sunt
-      provident sint hic temporibus. Quasi voluptatum distinctio ratione.</p>
-    <h2>A smaller title</h2>
-    <span>Qui officiis voluptates dolor deserunt qui. Placeat odit autem
-      repudiandae qui qui explicabo. Ex modi rerum labore nulla aut
-      voluptates. Doloribus id sint culpa qui doloremque. faire caca.</span>
-  
-    <button>click here</button><button>or here</button>
-  </div>
-
-  <div class="font-test" id="font-test-3">
-    <h1>A BigTitle</h1>
-    <i class="ph-bold ph-clock"></i>
-  
-    <h3>Small ass title</h3>
-    <p>Some words and stuff. Earum qui sed id. Repellendus esse est facere sed
-      dolorem. Velit et incidunt veritatis minus esse illum. Placeat sunt
-      provident sint hic temporibus. Quasi voluptatum distinctio ratione.</p>
-    <h2>A smaller title</h2>
-    <span>Qui officiis voluptates dolor deserunt qui. Placeat odit autem
-      repudiandae qui qui explicabo. Ex modi rerum labore nulla aut
-      voluptates. Doloribus id sint culpa qui doloremque. faire caca.</span>
-  
-    <button>click here</button><button>or here</button>
-  </div>
-
-  <div class="font-test" id="font-test-4">
-    <h1>A BigTitle</h1>
-    <i class="ph-bold ph-clock"></i>
-  
-    <h3>Small ass title</h3>
-    <p>Some words and stuff. Earum qui sed id. Repellendus esse est facere sed
-      dolorem. Velit et incidunt veritatis minus esse illum. Placeat sunt
-      provident sint hic temporibus. Quasi voluptatum distinctio ratione.</p>
-    <h2>A smaller title</h2>
-    <span>Qui officiis voluptates dolor deserunt qui. Placeat odit autem
-      repudiandae qui qui explicabo. Ex modi rerum labore nulla aut
-      voluptates. Doloribus id sint culpa qui doloremque. faire caca.</span>
-  
-    <button>click here</button><button>or here</button>
-  </div>
-
-  <div class="font-test" id="font-test-5">
-    <h1>A BigTitle</h1>
-    <i class="ph-bold ph-clock"></i>
-  
-    <h3>Small ass title</h3>
-    <p>Some words and stuff. Earum qui sed id. Repellendus esse est facere sed
-      dolorem. Velit et incidunt veritatis minus esse illum. Placeat sunt
-      provident sint hic temporibus. Quasi voluptatum distinctio ratione.</p>
-    <h2>A smaller title</h2>
-    <span>Qui officiis voluptates dolor deserunt qui. Placeat odit autem
-      repudiandae qui qui explicabo. Ex modi rerum labore nulla aut
-      voluptates. Doloribus id sint culpa qui doloremque. faire caca.</span>
-  
-    <button>click here</button><button>or here</button>
-  </div>
-</div>
 
       <div class="test-ui-color">
         <div class="test-row">
@@ -219,6 +141,7 @@ voluptates. Doloribus id sint culpa qui doloremque. faire caca.</span>
           </div>
         </div>
       </div>
+      <ac-timeslider></ac-timeslider>
 
       <div class="custom-palette palette-3">
         <h3>Default palette</h3>
@@ -229,6 +152,10 @@ voluptates. Doloribus id sint culpa qui doloremque. faire caca.</span>
       <div class="custom-palette palette-2">
         <h3>Custom palette 2</h3>
       </div>
+
+
+
+
 
       <dialog class="tracker-card" id="tracker-poop">
         <div class="tracker-card-header">
@@ -282,8 +209,45 @@ voluptates. Doloribus id sint culpa qui doloremque. faire caca.</span>
           <button commandfor="test-dialog" command="close">close</button>
         </div>
       </dialog>
+
+      
+
+
+
+
+
+
+
+
+
+
+
+      <div class="ac-dialog">
+        <dialog id="create-tracker">
+
+          <div class="top-bar">
+            <h3>Create a Tracker</h3>
+            <button type="button" commandfor="create-tracker" command="close">
+              <i class="ph-bold ph-x"></i>
+          </div>
+
+          <div style="--tracker-color: var(--user-color-1)">
+            <div class="dialog halftone">
+              <ac-createtracker></ac-createtracker>
+            </div>
+          </div>
+        </dialog>
+
+      </div>
+
+
+
+
     </div>
+
+
   </div>
+
 </body>
 <script type="module" src="App.js"></script>
 

@@ -3,6 +3,18 @@ const { app, BrowserWindow } = require('electron');
 const { ipcMain } = require("electron");
 const path = require('node:path');
 const { electron } = require('node:process');
+const PouchDB = require('pouchdb');
+PouchDB.plugin(require('pouchdb-adapter-memory'));
+const db = new PouchDB('database');
+
+loadDatabase();
+function loadDatabase() {
+
+  db.info().then(function (info) {
+    console.log("trying to retrieve database info: ", info);
+  });
+}
+
 
 if (require('electron-squirrel-startup')) {
   app.quit();
@@ -48,30 +60,26 @@ app.whenReady().then(() => {
   });
 });
 
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
+
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
 });
+
 //------------------------
 
-/* setupInitialDatabase();
-//recieve user-made data
-ipcMain.handle("recieve-data", async (event, symptom) => {
+ipcMain.handle("db-write", async (event, data, type) => {
+  console.log("main recieved data: ", data, type)
 
-  const entry = {
-    _id: "symptom_" + symptom.label,
-    label: symptom.label,
-    maxvalue: symptom.maxvalue,
-    defaultvalue: symptom.defaultvalue,
-    icon: symptom.icon
+  switch (type) {
+    case "tracker-empty":
+      console.log("recieved a new empty tracker.")
+      //check if already exists and ask to overwrite if so
+      const id = "tracker" + data.name
+      writeToDatabase(data, id);
+      break;
   }
-
-  console.log("recieved: ", entry)
-  writeToDatabase(entry, db);
 });
 
 ipcMain.handle('db:getAll', async () => {
@@ -88,13 +96,13 @@ ipcMain.handle('db:remove', async (_event, id, rev) => {
 
 ipcMain.handle('db:allDocs', async (_event, query) => {
   const result = db.allDocs({
-  include_docs: true,
-  attachments: true,
-  startkey: query,
- // endkey: 'quux'
-})
-console.log("result of search with query: ", query, ": ", result);
-return result;
+    include_docs: true,
+    attachments: true,
+    startkey: query,
+    // endkey: 'quux'
+  })
+  console.log("result of search with query: ", query, ": ", result);
+  return result;
 })
 
 ipcMain.handle('db:findByPrefix', async (_event, prefix) => {
@@ -103,42 +111,40 @@ ipcMain.handle('db:findByPrefix', async (_event, prefix) => {
     endkey: prefix + '\uffff',
     include_docs: true
   });
-
-  //return res.rows.map(r => r.id); //returns only the id, for our purposes not ok
   const returnedResult = res.rows.map(r => r.doc);
   return returnedResult;
 });
- */
-//---------------------database stuff
-/* function setupInitialDatabase() {
 
-  db.info().then(function (info) {
-    console.log("trying to retrieve database info: ", info);
-  });
-}
+
 
 function retrieveFromDatabase(docId) {
 
   if (docId) {
     console.log("trying to retrieve doc: ", docId);
     db.get(docId).then(function (doc) {
-      console.log("success retrieving ", docId, ": ",doc);
+      console.log("success retrieving ", docId, ": ", doc);
       return doc;
     });
   }
   else {
-    console.log("cannot retrieve ",docId)
+    console.log("cannot retrieve ", docId)
     return;
   }
 }
 
-setupInitialDatabase();
-//destroyDatabase();
-function writeToDatabase(data, database) {
-  database.put(data, function callback(err, result) {
-    if (!err) {
-      console.log("successfuly wrote to database: ", data._id);
-    }
-  });
+async function writeToDatabase(data, id) {
+  const dataToPut = data;
+  const validId = id.replaceAll(" ", "");
+  dataToPut._id = validId;
+  try {
+    const doc = await db.get(validId);
+  }
+  catch (ok) {
+    db.put(dataToPut, function callback(err, result) {
+      if (!err) {
+        console.log("successfuly wrote to database: ", data._id);
+      }
+    });
+  }
+
 }
- */

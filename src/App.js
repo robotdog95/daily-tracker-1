@@ -27,3 +27,5 @@ let devbtn = document.querySelector(".devbtn");
 devbtn.addEventListener("click", (e) => {
   mainArea.innerHTML = devPage
 });
+
+

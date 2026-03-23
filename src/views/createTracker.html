@@ -1,0 +1,61 @@
+<form id="form-new-tracker">
+
+    <div id="ct-wrap-row">
+<div>
+        <div id="iconselector-invoker">
+            <button type="button" class="icon-contoured">
+                <i id="icon-contour" class="ph ph-star"></i>
+                <i id="icon-fill" class="ph-fill ph-star"></i>
+            </button>
+        </div>
+        
+        <input name="new-tracker-name" maxlength="50" type="text" placeholder="new tracker">
+        
+    </div>       
+        
+        <div class="button-group" id="ct-mode-buttons">
+            <button type="button" id="ct-starsys">Star System</button>
+            <button type="button" id="ct-checkbox">Checkbox</button>
+            <button type="button" id="ct-time">Time</button>
+            <button type="button" id="ct-free">Free Text</button>
+        </div>
+        
+    </div>
+    
+
+    <!--all the toggable properties depending on mode:-->
+    <div id="ct-track-mode">
+        <ac-iconcheckbox id="ph-dog"></ac-iconcheckbox>
+
+        <ac-starsystem icon="tracker-icon" maxvalue="tracker-maxvalue">
+            <i class="ph-fill ph-star"></i><i
+                class="ph-fill ph-star"></i>
+                <i class="ph-fill ph-star"></i>
+                <i class="ph-bold ph-star"></i>
+                <i class="ph-bold ph-star"></i>
+        </ac-starsystem>
+
+        <div id="ct-number-input" class="number-input-wrapper"><input type="number" class="input-preview custom-number-input" placeholder="15 min"></div>
+
+
+        <textarea class="input-preview" autocomplete="off"
+            placeholder="today was a good day. I made a small poop."></textarea>
+    </div>
+    <!--end of toggable preview inputs-->
+
+
+
+    <input name="new-tracker-mode" class="input-hidden">
+
+
+    <button type="submit">create tracker</button>
+
+
+    <div class="sliding-container">
+        <ac-slidingtab id="iconselector" data-invokerid="iconselector-invoker">
+            <ac-iconselector></ac-iconselector>
+        </ac-slidingtab>
+    </div>
+
+</form>
+

@@ -6,8 +6,18 @@ import { EditView } from "./EditView.mjs";
 import { ConfigView } from "./ConfigView.mjs";
 import { PlannerView } from "./PlannerView.mjs";
 import { Draggable, DragContainer} from "./draggableCard.mjs";
+import { CreateTracker } from "./CreateTracker2.mjs";
+import { IconCheckbox } from "./IconCheckbox.mjs";
+import { SlidingTab } from "./SlidingTab.mjs";
+import { IconSelector } from "./IconSelector.mjs";
+import { TrackerCard } from "./TrackerCard.mjs";
+import { StarSystem } from "./StarSystem.mjs";
+import { TimeSlider } from "./TimeSlider.mjs";
+import { ColorPicker } from "./ColorPicker.mjs";
 
 export const AppComponents = {
+  starsystem: StarSystem,
+  trackercard: TrackerCard,
   calendar: CalendarView,
   planner: PlannerView,
   stats: StatsView,
@@ -15,4 +25,10 @@ export const AppComponents = {
   filter: FilterView,
   edit: EditView,
   config: ConfigView,
+  createtracker: CreateTracker,
+  iconcheckbox: IconCheckbox,
+  slidingtab: SlidingTab,
+  iconselector: IconSelector,
+  timeslider: TimeSlider,
+  colorpicker: ColorPicker
 };
