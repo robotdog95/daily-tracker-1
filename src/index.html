@@ -25,10 +25,12 @@
 </head>
 
 <body id="App" class="light-theme palette-1">
-  <div id="App-top-bar" class="top-bar" style="-webkit-app-region: drag">
-    <h1>Our super duper app</h1>
+  <div id="App-top-bar" class="top-bar" >
+    <div id="windowTitle" style="-webkit-app-region: drag">
+      <h1>Our super duper app</h1>
+    </div>
 
-    <div>
+    <div id="windowButtons">
       <button type="button"><i class="ph-bold ph-minus"></i></button>
       <button type="button"><i class="ph-bold ph-corners-out"></i></button>
       <button type="button"><i class="ph-bold ph-x"></i></button>
@@ -79,13 +81,7 @@
       <div class="menu-footer"></div>
     </div>
 
-
-
-
-
     <div class="App-content" id="mainwrapper">
-
-
 
       <span class="button-group">
         <button commandfor="test-dialog" command="show-modal" class="round">
@@ -153,10 +149,6 @@
         <h3>Custom palette 2</h3>
       </div>
 
-
-
-
-
       <dialog class="tracker-card" id="tracker-poop">
         <div class="tracker-card-header">
           <i class="ph-bold ph-toilet-paper"></i>
@@ -209,18 +201,6 @@
           <button commandfor="test-dialog" command="close">close</button>
         </div>
       </dialog>
-
-      
-
-
-
-
-
-
-
-
-
-
 
       <div class="ac-dialog">
         <dialog id="create-tracker">

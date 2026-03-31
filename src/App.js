@@ -29,3 +29,7 @@ devbtn.addEventListener("click", (e) => {
 });
 
 
+// for planner dev efficiency
+window.onload = () => {
+  loadComp(selectedAppPanel, "planner")
+}

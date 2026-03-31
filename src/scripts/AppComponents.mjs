@@ -5,7 +5,7 @@ import { FilterView } from "./FilterView.mjs";
 import { EditView } from "./EditView.mjs";
 import { ConfigView } from "./ConfigView.mjs";
 import { PlannerView } from "./PlannerView.mjs";
-import { Draggable, DragContainer} from "./draggableCard.mjs";
+import { DragBase } from "./draggableCard.mjs";
 import { CreateTracker } from "./CreateTracker2.mjs";
 import { IconCheckbox } from "./IconCheckbox.mjs";
 import { SlidingTab } from "./SlidingTab.mjs";

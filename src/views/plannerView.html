@@ -1,17 +1,206 @@
-<link defer rel="stylesheet" href="./views/styles/menusStyle.css" />
-<div class="planner-main">
-  <time-line data-drag>
-    <ac-drag-card></ac-drag-card>
-    <ac-drag-card></ac-drag-card>
-    <ac-drag-card></ac-drag-card>
-    <ac-drag-card></ac-drag-card>
-    <ac-drag-card></ac-drag-card>
-    <ac-drag-card class="anchor"></ac-drag-card>
-    <ac-drag-card></ac-drag-card>
-    <menu-sliding-anchored>
-      <div class="content">test test testing test</div>
-    </menu-sliding-anchored>
-  </time-line>
-  <button type="button" onclick="document.querySelector('menu-sliding-anchored').classList.toggle('sliding')">just a button</button>
+<style>
+  time-line-scheduler {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-auto-flow: column;
+    background-color: #afafaf;
+    width: 100%;
+    gap: 5px;
+  }
+  .has-shadow {
+    opacity: 0.2;
+  }
+  .follow-mouse {
+    position: fixed;
+    z-index: 2;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.221);
+    transition: all 0.2 cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
 
+  ac-planner {
+    height: 100%;
+    width: 100%;
+  }
+
+  .planner-main {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    align-content: stretch;
+  }
+
+  #TaskPool {
+    display: block;
+    background-color: #48a850;
+    flex: 1 1 auto;
+    overflow-y: auto;
+  }
+  draggable-task {
+    box-sizing: border-box;
+    display: flex;
+    min-height: 50px;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: aquamarine;
+  }
+  #Timeline {
+    font-family: monospace;
+    background-color: #ff9d9d;
+    flex: 1 1 auto;
+    overflow-y: auto;
+  }
+  .timeline-time {
+    grid-column: 1;
+  }
+  .row-attr {
+    grid-column: 2;
+    grid-row-start: attr(data-row type(<integer>));
+    grid-row-end: calc(
+      attr(data-row type(<integer>)) + attr(data-rowspan type(<integer>))
+    );
+  }
+  @media screen and (width <= 60em) {
+    .planner-main {
+      flex-direction: column;
+    }
+    draggable-task {
+      box-sizing: border-box;
+      display: flex;
+      width: 100%;
+      height: 50px;
+      border: 1px solid black;
+      border-radius: 5px;
+      background-color: aquamarine;
+    }
+    #TaskPool {
+      background-color: #77c5d8;
+      flex: 1 0 30%;
+      overflow-y: scroll;
+    }
+    #Timeline {
+      flex: 1 0 70%;
+    }
+  }
+
+  .folder-group {
+    display: flex;
+    flex-direction: column;
+    column-gap: 5px;
+    margin: 2px;
+    margin-bottom: 0px;
+    padding: 5px;
+    padding-bottom: 0px;
+    background-color: #f3e6ae;
+    border-radius: 5px;
+    transition: grid-template-rows 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+    .collapse-btn {
+      all: unset;
+
+      background-color: #beffd9;
+      padding: 2px;
+      margin: -5px -5px 5px -5px;
+      border-radius: 5px 5px 0px 0px;
+      &:active {
+        background-color: #858585;
+      }
+    }
+  }
+  /*used to create collapsing animated stuff*/
+  .collapse {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+  .collapse.is-open {
+    grid-template-rows: 1fr;
+    > .inner {
+      padding-bottom: 5px;
+    }
+  }
+  .inner {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    padding-bottom: 0px;
+  }
+</style>
+
+<link defer rel="stylesheet" href="./views/styles/menusStyle.css" />
+<div class="planner-main" style="overflow-y: auto">
+  <div id="Timeline">
+    <time-line-scheduler
+      data-start-time="0800"
+      data-end-time="230"
+      data-increments="5"
+    ></time-line-scheduler>
+  </div>
+  <div id="TaskPool">
+    <div class="folder-group">
+      <button
+        class="collapse-btn"
+        onclick="CollapseWrapper.classList.toggle('is-open')"
+      >
+        Folder Title
+      </button>
+      <div class="collapse" id="CollapseWrapper">
+        <div class="inner">
+          <draggable-task>1</draggable-task>
+          <draggable-task>2</draggable-task>
+          <draggable-task>3</draggable-task>
+        </div>
+      </div>
+    </div>
+    <div class="folder-group">
+      <button
+        class="collapse-btn"
+        onclick="CollapseWrapper1.classList.toggle('is-open')"
+      >
+        Folder 2
+      </button>
+
+      <div class="collapse" id="CollapseWrapper1">
+        <div class="inner">
+          <draggable-task>1</draggable-task>
+        </div>
+      </div>
+    </div>
+    <div class="folder-group">
+      <button
+        class="collapse-btn"
+        onclick="CollapseWrapper2.classList.toggle('is-open')"
+      >
+        Folder 3
+      </button>
+
+      <div class="collapse" id="CollapseWrapper2">
+        <div class="inner">
+          <draggable-task>1</draggable-task>
+          <draggable-task>2</draggable-task>
+          <draggable-task>3</draggable-task>
+          <draggable-task>4</draggable-task>
+        </div>
+      </div>
+    </div>
+    <div class="folder-group">
+      <button
+        class="collapse-btn"
+        onclick="CollapseWrapper3.classList.toggle('is-open')"
+      >
+        Folder 4
+      </button>
+
+      <div class="collapse" id="CollapseWrapper3">
+        <div class="inner">
+          <draggable-task>1</draggable-task>
+          <draggable-task>2</draggable-task>
+          <draggable-task>3</draggable-task>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
