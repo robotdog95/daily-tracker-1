@@ -8,6 +8,8 @@ PouchDB.plugin(require('pouchdb-adapter-memory'));
 const db = new PouchDB('database');
 
 loadDatabase();
+//removeShit('trackerPooped?');
+
 function loadDatabase() {
 
   db.info().then(function (info) {
@@ -69,26 +71,50 @@ app.on('window-all-closed', () => {
 
 //------------------------
 
-ipcMain.handle("db-write", async (event, data, type) => {
-  console.log("main recieved data: ", data, type)
+ipcMain.handle("db-write", async (_event, data, type) => {
+  console.log("main recieved data: ", data, type);
 
   switch (type) {
-    case "tracker-empty":
+    case "new-tracker":
       console.log("recieved a new empty tracker.")
       //check if already exists and ask to overwrite if so
-      const id = "tracker" + data.name
+      var id = "tracker" + data.elId;
+      writeToDatabase(data, id);
+
+      break;
+
+    case "new-category":
+      console.log("recieved a new category: ", data);
+
+      var id = "cat" + data.name;
       writeToDatabase(data, id);
       break;
+
+    default:
+      console.log("no type provided for ", data, ". Cancelling...")
+
   }
+
 });
+
+
 
 ipcMain.handle('db:getAll', async () => {
   return db.allDocs({ include_docs: true });
 });
 
 ipcMain.handle('db:put', async (_event, doc) => {
+  console.log("recieved update to entry ", doc._id, ": ", doc)
   return db.put(doc);
+
 });
+
+
+
+
+ipcMain.handle('db:removeShit', async (_event, docId) => {
+  return removeShit(docId);
+})
 
 ipcMain.handle('db:remove', async (_event, id, rev) => {
   return db.remove(id, rev);
@@ -111,7 +137,9 @@ ipcMain.handle('db:findByPrefix', async (_event, prefix) => {
     endkey: prefix + '\uffff',
     include_docs: true
   });
+
   const returnedResult = res.rows.map(r => r.doc);
+  console.log("search result:", returnedResult)
   return returnedResult;
 });
 
@@ -132,17 +160,35 @@ function retrieveFromDatabase(docId) {
   }
 }
 
+async function removeShit(docId) {
+  try {
+    console.log("looking for entry: ", docId)
+    const doc = await db.get(docId);
+    const response = await db.remove(doc);
+    console.log(response)
+  } catch (err) {
+    const alldocs = await db.allDocs();
+    console.log(err, alldocs);
+    
+  }
+}
+
 async function writeToDatabase(data, id) {
   const dataToPut = data;
   const validId = id.replaceAll(" ", "");
   dataToPut._id = validId;
+  console.log("writing to db... ", dataToPut, "validId: ", validId);
   try {
     const doc = await db.get(validId);
+    console.log(doc);
   }
   catch (ok) {
     db.put(dataToPut, function callback(err, result) {
       if (!err) {
         console.log("successfuly wrote to database: ", data._id);
+      }
+      else {
+        console.log(err);
       }
     });
   }

@@ -2,10 +2,19 @@ import { AppComponent, loadHTML } from "./AppComponent.mjs";
 import { Tracker } from "./Tracker.mjs";
 export class TimeSlider extends AppComponent {
 
-    constructor() {
+    constructor(inputEl) {
         super();
-    }
+        if (inputEl) {
+            this.inputEl = inputEl;
+        }
+        else {
+            this.inputEl = document.createElement("input");
+            this.inputEl.className = "input-hidden";
+            this.inputEl.id = "auto-generated-input"
+        }
 
+
+    }
     static htmlpath = "./views/timeSlider.html";
 
 
@@ -23,14 +32,17 @@ export class TimeSlider extends AppComponent {
         const slider = this.querySelector("input");
         slider.max= this.dataset.maxvalue;
         slider.value = this.dataset.defvalue;
-        
-        const output = this.querySelector("#output");
 
+        const output = document.querySelector("#"+this.inputEl.id);
+        if(output){
+            slider.oninput = function () {
 
-
-        slider.oninput = function() {
-            output.innerHTML = this.value;
+                console.log("slider value: ", slider.value)
+                console.log("output el: ", output)
+                output.value = slider.value;
+            }
         }
+
 
     }
 

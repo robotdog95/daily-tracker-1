@@ -76,7 +76,7 @@ export class IconSelector extends AppComponent{
     openTab() {
 
         const allButtons = this.querySelectorAll(".is-tab-button");
-        console.log(allButtons)
+
         Object.entries(allButtons).forEach(([key, button]) => {
 
             button.classList.replace("button-active", "button-inactive");

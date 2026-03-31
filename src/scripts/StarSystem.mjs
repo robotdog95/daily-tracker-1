@@ -2,8 +2,18 @@ import { AppComponent, loadHTML } from "./AppComponent.mjs";
 import { Tracker } from "./Tracker.mjs";
 export class StarSystem extends AppComponent {
 
-    constructor() {
+    constructor(inputEl) {
         super();
+        if (inputEl) {
+            this.inputEl = inputEl;
+        }
+        else {
+            this.inputEl = document.createElement("input");
+            this.inputEl.className = "input-hidden";
+            this.inputEl.id="auto-generated-input"
+        }
+
+    
     }
 
     static htmlpath = "./views/starSystem.html";
@@ -21,30 +31,39 @@ export class StarSystem extends AppComponent {
 
         this.innerHTML = await this.getHTML();
         this.starPrototype = this.querySelector("#ss-original");
-        this.maxValue = this.dataset.maxvalue;
+        if (this.dataset.maxvalue<=5){
+            this.maxValue = this.dataset.maxvalue;
+        }
+        else {
+            this.dataset.maxvalue = 5;
+            this.maxValue = 5};
+
         for (let i = 0; i < this.dataset.maxvalue; i++) {
 
-            var star = this.starPrototype.cloneNode(true);
-            star.id = "ss-star-" + (i + 1);
-            star.dataset.starid = (i + 1);
+            if(this.starPrototype){
+                var star = this.starPrototype.cloneNode(true);
+                star.id = "ss-star-" + (i + 1);
+                star.dataset.starid = (i + 1);
 
 
-            const iconEls = star.children;
-            iconEls[0].classList.add(this.dataset.icon);
-            iconEls[1].classList.add(this.dataset.icon);
-            console.log("loop", i, " star: ", star);
-            this.append(star);
+                const iconEls = star.children;
+                iconEls[0].classList.add(this.dataset.icon);
+                iconEls[1].classList.add(this.dataset.icon);
+
+                this.append(star);
+            }
+
         }
 
         this.addEventListener("click", (e) => {
             e.preventDefault;
             let prevValue = this.currentValue;
             this.currentValue = e.target.dataset.starid;
-            console.log("new starsys value: ", this.currentValue, ", old value:", prevValue);
+
 
             if (this.currentValue == prevValue) {
                 this.currentValue = this.currentValue - 1;
-                console.log("new value: ", this.currentValue);
+
                 this.updateStars();
             }
             else {
@@ -55,6 +74,8 @@ export class StarSystem extends AppComponent {
 
     updateStars() {
         var starstoshow = this.currentValue;
+        console.log(this.inputEl, this.currentValue);
+        this.inputEl.value = this.currentValue;
         const allStars = this.querySelectorAll(".starsystem-star");
 
         allStars.forEach(function (star, index, listObj) {

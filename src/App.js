@@ -9,6 +9,8 @@ async function loadComp(element, compstr) {
   await applet.render(element);
 }
 
+
+
 let mainArea = document.querySelector(".App-content"); //TODO dynamically allow other pannels to be created dynamically and focus on it.
 const devPage = mainArea.innerHTML;
 let selectedAppPanel = mainArea;

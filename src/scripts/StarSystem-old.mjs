@@ -29,17 +29,20 @@ export class StarSystem extends AppComponent {
         /*make stars */
         for (let i=0; i<totalNumber; i++){
             console.log("hello");
-            var starClone = star.cloneNode(true);
-            starClone.classList.add("full");
-            console.log("star clone: ",starClone);
-            var number=i+1;
-            starClone.id="ss-star-"+number;
-            starClone.dataset.number=number;
-            const iconEls = starClone.children;
-            iconEls[0].classList.add(icon);
-            iconEls[1].classList.add(icon);
-            console.log("children: ", iconEls);
-            this.append(starClone);
+            if(star){
+                var starClone = star.cloneNode(true);
+                starClone.classList.add("full");
+                console.log("star clone: ", starClone);
+                var number = i + 1;
+                starClone.id = "ss-star-" + number;
+                starClone.dataset.number = number;
+                const iconEls = starClone.children;
+                iconEls[0].classList.add(icon);
+                iconEls[1].classList.add(icon);
+                console.log("children: ", iconEls);
+                this.append(starClone);
+            }
+
     
         }
         

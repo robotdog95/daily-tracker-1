@@ -22,6 +22,7 @@
     "@phosphor-icons/web": "github:phosphor-icons/web",
     "electron-squirrel-startup": "^1.0.1",
     "electron-store": "^11.0.2",
+    "electronmon": "^2.0.4",
     "pouchdb": "^9.0.0",
     "pouchdb-adapter-memory": "^9.0.0"
   },

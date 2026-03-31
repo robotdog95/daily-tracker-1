@@ -1,61 +1,78 @@
 <form id="form-new-tracker">
 
-    <div id="ct-wrap-row">
-<div>
+    <div id="ct-main-options">
+
         <div id="iconselector-invoker">
             <button type="button" class="icon-contoured">
                 <i id="icon-contour" class="ph ph-star"></i>
                 <i id="icon-fill" class="ph-fill ph-star"></i>
             </button>
         </div>
-        
-        <input name="new-tracker-name" maxlength="50" type="text" placeholder="new tracker">
-        
-    </div>       
-        
-        <div class="button-group" id="ct-mode-buttons">
-            <button type="button" id="ct-starsys">Star System</button>
-            <button type="button" id="ct-checkbox">Checkbox</button>
-            <button type="button" id="ct-time">Time</button>
-            <button type="button" id="ct-free">Free Text</button>
+        <button type="button" class="smaller-invoker" id="colorpicker-invoker">
+            <i class="ph-fill ph-palette"></i>
+        </button>
+
+        <div id="ct-main-inputs">
+            <input name="name" maxlength="50" type="text" placeholder="new tracker">
+
+            <select name="track-mode" id="track-mode">
+                <option value="starsys">Star System</option>
+                <option value="checkbox">Checkbox</option>
+                <option value="time">Time</option>
+                <option value="free">Free Text</option>
+            </select>
+
+            <select name="category" id="category">
+                
+            </select>
         </div>
-        
     </div>
-    
 
-    <!--all the toggable properties depending on mode:-->
-    <div id="ct-track-mode">
-        <ac-iconcheckbox id="ph-dog"></ac-iconcheckbox>
+    <div id="ct-bottom">
+        <div id="ct-options" data-selectedmode="">
 
-        <ac-starsystem icon="tracker-icon" maxvalue="tracker-maxvalue">
-            <i class="ph-fill ph-star"></i><i
-                class="ph-fill ph-star"></i>
-                <i class="ph-fill ph-star"></i>
-                <i class="ph-bold ph-star"></i>
-                <i class="ph-bold ph-star"></i>
-        </ac-starsystem>
+            <div id="max-value" class="ct-option hidden">
+                <label for="max-value">Max Value:</label>
+                <input name="max-value" type="number">
+            </div>
 
-        <div id="ct-number-input" class="number-input-wrapper"><input type="number" class="input-preview custom-number-input" placeholder="15 min"></div>
+            <div id="def-value" class="ct-option hidden">
 
+                <label for="def-value">Default Value:</label>
+                <input name="def-value" type="number">
 
-        <textarea class="input-preview" autocomplete="off"
-            placeholder="today was a good day. I made a small poop."></textarea>
-    </div>
-    <!--end of toggable preview inputs-->
+            </div>
 
+            <div id="options" class="ct-option hidden">
+                Some options
+                <input>
+            </div>
+            </div>
+            
+                <ac-trackercard id="ct-preview"></ac-trackercard>
+   
+</div>
 
-
-    <input name="new-tracker-mode" class="input-hidden">
-
-
-    <button type="submit">create tracker</button>
-
+<button type="button" id="submitcreatetracker">create tracker</button>
 
     <div class="sliding-container">
         <ac-slidingtab id="iconselector" data-invokerid="iconselector-invoker">
             <ac-iconselector></ac-iconselector>
         </ac-slidingtab>
+
     </div>
 
+    <div class="sliding-container">
+        <ac-slidingtab id="colorpicker" data-invokerid="colorpicker-invoker"><ac-colorpicker data-currentcolor="var(--tracker-color)"></ac-slidingtab>
+    </div>
+
+
+
+    <input id="icon-input" type="text" name="icon" class="invisible-input" value="">
 </form>
 
+<div id="cc-confirm-make" class="hidden">
+    <i class="ph-bold"></i>
+    <h3>New tracker saved to database.</h3>
+    <button type="button" commandfor="create-tracker" command="close" id="ct-close">close</button>
+</div>
