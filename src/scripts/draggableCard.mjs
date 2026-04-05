@@ -127,6 +127,7 @@ export class DragBase extends AppComponent {
 
     document.querySelector("body").appendChild(DragBase.mouseFollower)
     DragBase.dragging.classList.add("has-shadow")
+    DragBase.dragging.style.mouseEvents = "none"
   }
   static moveShadow() {
     if (DragBase.mouseFollower) {
@@ -161,6 +162,7 @@ export class DragBase extends AppComponent {
     if (DragBase.dragging) {
       DragBase.dragging.style.visibility = "unset"
       DragBase.dragging.classList.remove("has-shadow")
+      DragBase.dragging.style.mouseEvents = ""
     }
   }
   static async moveShadowBack() {
@@ -190,14 +192,21 @@ export class DragBase extends AppComponent {
       animation.onerror = resolve; // Ensure we handle any errors as well
     });
   }
+  static _bindGenericDropZoneEvent(el) {
+    el.addEventListener("dnd::dropped", (e) => {
+      el.appendChild(e.detail.draggable)
+    })
+  }
   //#endregion
   //#region -------- Utils --------
-  _dispatch(name, detail = {}) {
-    this.dispatchEvent(new CustomEvent(name, {
+  _dispatch(element = this, name, detail = {}) {
+    console.log(element);
+    
+    element.dispatchEvent(new CustomEvent(name, {
       bubbles: true,
       composed: true, // crosses shadow DOM boundaries, unused for now...
       detail: {
-        source: this,
+        source: element,
         ...detail
       }
     }))
@@ -274,42 +283,48 @@ export class DragBase extends AppComponent {
     }
     if (DragBase.mouseFollower) {
       DragBase.moveShadow()
+      let zones = DragBase.resolveZone(DragBase.mousePos, e.target.getBoundingClientRect())
+      if (e.target.tagName == "DRAG-BASE") {
+        if (zones.every(item => this._currentZones.includes(item)) &&
+          this._currentZones.every(item => zones.includes(item))) return
+        e.target._dispatch("zone-hovered", {
+          zones: zones,
+          draggable: DragBase.dragging,
+        })
+        this._currentZones = zones
+        console.log("hovering on zone(s) :", zones);
+      }
+      this._dispatch(e.target, "zone-hovered", {
+          zones: zones,
+          draggable: DragBase.dragging,
+        })
     }
 
-    let zones = DragBase.resolveZone(DragBase.mousePos, e.target.getBoundingClientRect())
-    if (e.target.tagName == "DRAG-BASE") {
-      if (zones.every(item => this._currentZones.includes(item)) &&
-        this._currentZones.every(item => zones.includes(item))) return
-      e.target._dispatch("zone-hovered", {
-        zones: zones,
-        dragging: DragBase.dragging,
-      })
-      this._currentZones = zones
-      console.log("hovering on zone(s) :", zones);
-    }
+
   }
   _handleMouseUp(e) {
 
   }
   _handleGlobalMouseUp(e) {
+    if (!DragBase.dragging) return
     let zones = Array()
-    zones = DragBase.resolveZone(DragBase.mousePos, e.target.getBoundingClientRect())
-    if (e.target.tagName == "DRAG-BASE") {
+    zones = this._currentZones /*DragBase.resolveZone(DragBase.mousePos, e.target.getBoundingClientRect())*/
+    /*if (e.target.tagName == "DRAG-BASE") {
       e.target._dispatch("zone-hovered", {
         zones: zones,
         dragging: DragBase.dragging
       })
       console.log("dropped on zone(s) :", zones);
 
+    }*/
+    if ( /*e.target.hasAttribute("drop-zone")*/ true) {
+      console.log("Mouseup Event From DragBase Instance:", this, "Event :", e);
+
+      this._dispatch(e.target, "dnd:dropped", {
+        zones: zones,
+        draggable: DragBase.dragging
+      })
     }
-    e.target.dispatchEvent(new CustomEvent("dnd:dropped", {
-      bubbles: true,
-      composed: true, // crosses shadow DOM boundaries, unused for now...
-      detail: {
-        source: e.target,
-        draggable: DragBase.dragging,
-      }
-    }))
 
     DragBase.removeShadow()
     DragBase.dragging?.classList.remove(DragBase.hoveredStyle)
@@ -328,7 +343,6 @@ export class DraggablePlannerTasks extends DragBase {
   }
   connectedCallback() {
     console.log("task created");
-
   }
 }
 
@@ -349,15 +363,14 @@ class Timeline extends AppComponent {
 
     duration = (2400 - (this.startTime - this.endTime)) % 2400
     this.increments = parseInt(this.getAttribute("data-increments"))
+    console.log(this.increments);
+
     this.cellnumber = (Math.trunc(duration / 100) * 60 / this.increments) //duration using hours
     this.cellnumber += Math.trunc((duration % 100) / this.increments) //add cells for end of the day minutes
 
-    console.log(cellnumber);
-    this.hourstr = parseInt(this.startHour)
-    this.separator = ":"
-    this.minstr = parseInt(this.startMinutes)
+    console.log(this.cellnumber);
 
-    let cellstr = `repeat(${cellnumber}, 1fr)`
+    let cellstr = `repeat(${this.cellnumber}, 1fr)`
     Object.assign(this.style, {
       display: "grid",
       gridAutoFlow: "row",
@@ -366,30 +379,88 @@ class Timeline extends AppComponent {
   }
 
   connectedCallback() {
-    createTimelineGraduations()
-    this.addEventListener("dnd:dropped", (e) => {
-      let dropped = e.detail.draggable
-      dropped.dataset.row = 15
-      dropped.dataset.rowspan = 5
-
-      dropped.classList.add("row-attr")
-      this.appendChild(dropped)
-    });
+    this.createTimelineGraduations()
+    this.createCells()
+    //this.populateCells() //TODO: Get data from db API and place tasks accordingly 
+    this.resolveCells()
   }
 
   createCells() {
+    this.cells = Array()
+    for (let cellIdx = 1; cellIdx <= this.cellnumber; cellIdx++) {
+      let cellDiv = document.createElement("div")
+      cellDiv.setAttribute("free", "")
+      cellDiv.setAttribute("order", cellIdx)
+      cellDiv.setAttribute("cellSize", this.increments)
 
+      this.styleCell(cellDiv)
+
+      this.cells.push(cellDiv)
+    }
+  }
+
+  styleCell(cellElement) {
+
+    console.log("cell stylised :", cellElement);
+
+
+    let colStart = 2
+    let colEnd = 2
+    let rowStart = parseInt(cellElement.getAttribute("order"))
+    let rowEnd = rowStart + (parseInt(cellElement.getAttribute("cellsize")) / this.increments)
+    console.log("row end style :", rowEnd, cellElement.getAttribute("cellsize"), cellElement, this.increments);
+
+    Object.assign(cellElement.style, {
+      gridColumnStart: colStart,
+      gridColumnEnd: colEnd,
+      gridRowStart: rowStart,
+      gridRowEnd: rowEnd,
+    })
+  }
+
+  resolveCells() {
+    this.cells.forEach(cell => {
+      if (cell.hasAttribute("free")) {
+        this.appendChild(cell)
+        this.addListener(cell)
+      }
+    });
+  }
+
+  addListener(cell) {
+    console.log("adding event listener to ", cell)
+
+    cell.addEventListener("dnd:dropped", (e) => {
+      let dropped = e.detail.draggable;
+      let rowspan = parseInt(e.detail.draggable.getAttribute("data-time-length")) / this.increments
+      dropped.dataset.row = cell.getAttribute("order")
+      dropped.dataset.rowspan = rowspan
+      dropped.classList.add("row-attr")
+      dropped.classList.add("scheduled")
+      this.appendChild(dropped)
+    });
+    cell.addEventListener("zone-hovered", (e) => {
+      console.log(e);
+    });
+    "zone-hovered"
   }
 
   createTimelineGraduations() {
-    for (let i = 0; i < cellnumber; i++) {
+
+    console.log("creating timestamps column ... ");
+
+
+    let hourstr = this.startHour
+    let separator = ":"
+    let minstr = this.startMinutes
+    for (let i = 0; i <= this.cellnumber; i++) {
       let timeLineDiv = document.createElement("div");
 
       if (parseInt(minstr) >= 60) {
         minstr = minstr % 60
         hourstr = (hourstr + 1) % 24
       }
-      timeLineDiv.textContent = `${String(hourstr).padStart(2,'0')}${separator}${String(minstr).padStart(2,'0')} to ${String((minstr + this.increments) >= 60 ? (hourstr + 1)%24 : hourstr).padStart(2,'0')}${separator}${String((minstr + this.increments) >= 60 ? 0 : (minstr + this.increments)).padStart(2,'0')}`
+      timeLineDiv.textContent = `${String(hourstr).padStart(2,'0')}${separator}${String(minstr).padStart(2,'0')} to ${String((minstr + this.increments) >= 60 ? (hourstr + 1)%24 : hourstr).padStart(2,'0')}${separator}${String((minstr + this.increments) % 60).padStart(2,'0')}`
       this.appendChild(timeLineDiv)
       timeLineDiv.classList.add("timeline-time")
       minstr += parseInt(this.increments)

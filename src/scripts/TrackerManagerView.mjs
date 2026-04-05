@@ -117,12 +117,18 @@ export class TrackerManagerView extends AppComponent {
 
             for (let i = 0; i < trackersToDisplayHere.length; i++) {
 
-                const tracker = trackersToDisplayHere[i];
+                let tracker = trackersToDisplayHere[i];
                 console.log("looking to place ", tracker, "in cat: ", el.id);
 
                 const id = "#" + tracker.elId;
                 console.log("looking for element with id: ", id)
-                const trackerEl = this.querySelector("#" + tracker.elId);
+
+                try {
+                    var trackerEl = this.querySelector("#" + tracker.elId);
+                } catch (e) {
+                    console.log(e);
+                }
+                
 
                 if (trackerEl !== null && trackerEl !== undefined && trackerEl && el) {
                     console.log("tracker in cat: ", tracker.elId, ". Tracker Element: ", trackerEl);
@@ -149,6 +155,8 @@ export class TrackerManagerView extends AppComponent {
 this.isReady=false;
         this.innerHTML = await this.getHTML();
         this.allTrackers = await (window.db.findByPrefix("tracker"));
+        console.log(this.allTrackers);
+        
         this.categories = await (window.db.findByPrefix("cat"));
 
         this.renderTrackers();
@@ -165,7 +173,11 @@ this.isReady=false;
             if (tracker.name) {
 
                 let el;
-                const elExists = this.querySelector("#" + tracker.elId);
+                try {
+                    var elExists = this.querySelector("#" + tracker.elId);
+                } catch (e) {
+                    console.log(e);
+                }
 
                 if (elExists) {
                     console.log("element: ", elExists);

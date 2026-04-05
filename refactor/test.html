@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <style>
+    * {
+      user-select: none;
+      box-sizing: border-box;
+    }
+    test-dnd {
+      display: block;
+      width: 120px;
+      height: 120px;
+      background-color: #bbbbbb;
+    }
+    .dnd-hover-draggable {
+      border: 2px solid #ae7fb9;
+    }
+    .dnd-follower {
+      position: fixed;
+      z-index: 2;
+      box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.221);
+      p {
+        user-select: text;
+      }
+      background-color: rgb(255 255 255 / 10%);
+      backdrop-filter: blur(5px);
+    }
+    .dnd-preview {
+      opacity: 0.5;
+    }
+    .dnd-shadow {
+      opacity: 0.2;
+    }
+  </style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1.0" />
+    <title>Test Page Drag and Drop</title>
+  </head>
+
+  <body>
+    <test-dnd></test-dnd>
+  </body>
+  <script src="drag and drop Components.js"></script>
+</html>

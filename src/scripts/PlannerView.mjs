@@ -17,8 +17,8 @@ export class PlannerView extends AppComponent {
     this.innerHTML = await this.getHTML();
   }
   async getHTML() {
-    this.innerHTML = await loadHTML(PlannerView.htmlpath);
-    return this.innerHTML;
+    this.currentInnerHTML = await loadHTML(PlannerView.htmlpath);
+    return this.currentInnerHTML;
   }
 
   render(el) {

@@ -5,7 +5,9 @@
     grid-auto-flow: column;
     background-color: #afafaf;
     width: 100%;
-    gap: 5px;
+  }
+  .scheduled {
+    height: 1fr;
   }
   .has-shadow {
     opacity: 0.2;
@@ -40,7 +42,6 @@
   draggable-task {
     box-sizing: border-box;
     display: flex;
-    min-height: 50px;
     width: 100%;
     border: 1px solid black;
     border-radius: 5px;
@@ -70,7 +71,6 @@
       box-sizing: border-box;
       display: flex;
       width: 100%;
-      height: 50px;
       border: 1px solid black;
       border-radius: 5px;
       background-color: aquamarine;
@@ -134,13 +134,14 @@
 <div class="planner-main" style="overflow-y: auto">
   <div id="Timeline">
     <time-line-scheduler
-      data-start-time="0800"
-      data-end-time="230"
-      data-increments="5"
+      data-start-time="0800",
+      data-end-time="230",
+      data-increments="10",
+      drop-zone
     ></time-line-scheduler>
   </div>
-  <div id="TaskPool">
-    <div class="folder-group">
+  <div id="TaskPool" drop-zone>
+    <div class="folder-group" drop-zone>
       <button
         class="collapse-btn"
         onclick="CollapseWrapper.classList.toggle('is-open')"
@@ -149,13 +150,13 @@
       </button>
       <div class="collapse" id="CollapseWrapper">
         <div class="inner">
-          <draggable-task>1</draggable-task>
-          <draggable-task>2</draggable-task>
-          <draggable-task>3</draggable-task>
+          <draggable-task data-time-length="40">1</draggable-task>
+          <draggable-task data-time-length="20">2</draggable-task>
+          <draggable-task data-time-length="120">3</draggable-task>
         </div>
       </div>
     </div>
-    <div class="folder-group">
+    <div class="folder-group" drop-zone>
       <button
         class="collapse-btn"
         onclick="CollapseWrapper1.classList.toggle('is-open')"
@@ -165,11 +166,11 @@
 
       <div class="collapse" id="CollapseWrapper1">
         <div class="inner">
-          <draggable-task>1</draggable-task>
+          <draggable-task data-time-length="60">1</draggable-task>
         </div>
       </div>
     </div>
-    <div class="folder-group">
+    <div class="folder-group" drop-zone>
       <button
         class="collapse-btn"
         onclick="CollapseWrapper2.classList.toggle('is-open')"
@@ -179,14 +180,14 @@
 
       <div class="collapse" id="CollapseWrapper2">
         <div class="inner">
-          <draggable-task>1</draggable-task>
-          <draggable-task>2</draggable-task>
-          <draggable-task>3</draggable-task>
-          <draggable-task>4</draggable-task>
+          <draggable-task data-time-length="15">1</draggable-task>
+          <draggable-task data-time-length="30">2</draggable-task>
+          <draggable-task data-time-length="90">3</draggable-task>
+          <draggable-task data-time-length="90">4</draggable-task>
         </div>
       </div>
     </div>
-    <div class="folder-group">
+    <div class="folder-group" drop-zone>
       <button
         class="collapse-btn"
         onclick="CollapseWrapper3.classList.toggle('is-open')"
@@ -196,9 +197,9 @@
 
       <div class="collapse" id="CollapseWrapper3">
         <div class="inner">
-          <draggable-task>1</draggable-task>
-          <draggable-task>2</draggable-task>
-          <draggable-task>3</draggable-task>
+          <draggable-task data-time-length="10">1</draggable-task>
+          <draggable-task data-time-length="10">2</draggable-task>
+          <draggable-task data-time-length="10">3</draggable-task>
         </div>
       </div>
     </div>
