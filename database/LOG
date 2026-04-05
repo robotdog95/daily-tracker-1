@@ -1,5 +1,5 @@
-2026/04/04-12:41:42.356 799dc Recovering log #249
-2026/04/04-12:41:42.357 799dc Level-0 table #252: started
-2026/04/04-12:41:42.370 799dc Level-0 table #252: 237 bytes OK
-2026/04/04-12:41:42.385 799dc Delete type=0 #249
-2026/04/04-12:41:42.385 799dc Delete type=3 #247
+2026/04/05-03:15:41.699 c26c0 Recovering log #253
+2026/04/05-03:15:41.700 c26c0 Level-0 table #255: started
+2026/04/05-03:15:41.714 c26c0 Level-0 table #255: 237 bytes OK
+2026/04/05-03:15:41.729 c26c0 Delete type=0 #253
+2026/04/05-03:15:41.729 c26c0 Delete type=3 #251
